@@ -34,7 +34,6 @@ const HeroSection = () => {
         start: "1% top",
         end: "bottom top",
         scrub: true,
-        markers: true,
       },
     });
 
