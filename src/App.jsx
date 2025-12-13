@@ -1,20 +1,32 @@
 import NavBar from "./components/NavBar";
 import HeroSection from "./sections/HeroSection";
-import { ScrollTrigger } from "gsap/all";
+import { ScrollTrigger, ScrollSmoother } from "gsap/all";
 import gsap from "gsap";
 import MessageSection from "./sections/MessageSection";
 import FlavorSection from "./sections/FlavorSection";
+import { useEffect } from "react";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const App = () => {
+  useGSAP(() => {
+    ScrollSmoother.create({
+      smooth: 3,
+      effects: true,
+    });
+  });
   return (
     <main>
       <NavBar />
-      <HeroSection />
-      <MessageSection />
-      <FlavorSection />
-      <div className="h-dvh border border-red-500" />
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <HeroSection />
+          <MessageSection />
+          <FlavorSection />
+          <div className="h-dvh border border-red-500" />
+        </div>
+      </div>
     </main>
   );
 };
