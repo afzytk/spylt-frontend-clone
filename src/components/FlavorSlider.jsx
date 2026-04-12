@@ -8,26 +8,29 @@ const FlavorSlider = () => {
   const sliderRef = useRef();
 
   const isTablet = useMediaQuery({
-    query: "(max-width 1024)",
+    query: "(max-width: 1024px)",
   });
 
   useGSAP(() => {
-    const scrollAmount = sliderRef.current.scrollWidth - window.innerWidth;
+    const section = document.querySelector(".flavor-section");
 
-    if (!isTablet) {
+    if (!isTablet && section) {
+      const getScrollAmount = () => section.scrollWidth - window.innerWidth;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".flavor-section",
           start: "2% top",
-          end: `+=${scrollAmount + 1500}px`,
+          end: () => `+=${getScrollAmount()}px`,
           scrub: true,
           pin: true,
+          invalidateOnRefresh: true,
         },
       });
 
       tl.to(".flavor-section", {
-        x: `-${scrollAmount + 1500}px`,
-        ease: "power1.inOut",
+        x: () => `-${getScrollAmount()}px`,
+        ease: "none",
       });
     }
 
@@ -51,7 +54,7 @@ const FlavorSlider = () => {
           xPercent: -22,
           ease: "power1.inOut",
         },
-        "<"
+        "<",
       )
       .to(
         ".second-text-split",
@@ -59,7 +62,7 @@ const FlavorSlider = () => {
           xPercent: -7,
           ease: "power1.inOut",
         },
-        "<"
+        "<",
       );
   });
 
