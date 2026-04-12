@@ -2,8 +2,13 @@ import { useGSAP } from "@gsap/react";
 import ClipPathTitle from "../components/ClipPathTitle";
 import gsap from "gsap";
 import VideoPinSection from "./VideoPinSection";
+import { useMediaQuery } from "react-responsive";
 
 const BenefitSection = () => {
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+
   useGSAP(() => {
     const revealTl = gsap.timeline({
       delay: 1,
@@ -44,14 +49,14 @@ const BenefitSection = () => {
 
   return (
     <section className="benefit-section">
-      <div className="container mx-auto pt-20">
-        <div className="col-center">
-          <p>
+      <div className="container mx-auto md:pt-20 pt-10 px-5">
+        <div className="col-center text-center">
+          <p className="md:text-2xl text-lg font-paragraph text-balance">
             Unlock the Advantages: <br />
             Explore the Key Benefits of Choosing SPYLT
           </p>
 
-          <div className="mt-20 col-center">
+          <div className="md:mt-20 mt-10 col-center md:gap-0 gap-4">
             <ClipPathTitle
               title={"Shelf stable"}
               color={"#faeade"}
@@ -83,14 +88,18 @@ const BenefitSection = () => {
           </div>
 
           <div className="md:mt-0 mt-10">
-            <p>And much more ...</p>
+            <p className="md:text-xl text-lg font-paragraph mt-4 md:mt-0">
+              And much more ...
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="relative overlay-box">
-        <VideoPinSection />
-      </div>
+      {!isMobile && (
+        <div className="relative overlay-box">
+          <VideoPinSection />
+        </div>
+      )}
     </section>
   );
 };
